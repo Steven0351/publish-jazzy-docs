@@ -68,7 +68,7 @@ const generateAndDeploy = async () => {
   await exec.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
   await exec.exec("git add .")
   await exec.exec("git", ["commit", "-m", "'Deploying Updated Jazzy Docs'"])
-  await exec.exec(`git push --force ${remote} master:${branch}`)
+  await exec.exec(`git push --force ${remote} refs/head/master:${branch}`)
 }
 
 try {
