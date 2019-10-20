@@ -3734,6 +3734,7 @@ const getDocumentationFolder = () => {
 }
 
 const generateAndDeploy = async () => {
+  await exec.exec("gem install jazzy --user-install")
   await exec.exec(generateJazzyArguments())
   await exec.exec(`cd ${getDocumentationFolder()}`)
   
@@ -3747,8 +3748,8 @@ const generateAndDeploy = async () => {
   await exec.exec(`git push --force ${remote} master:${branch}`)
 }
 
-generateAndDeploy()
-
+ generateAndDeploy()
+ 
 
 /***/ }),
 
