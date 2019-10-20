@@ -3734,14 +3734,21 @@ const getDocumentationFolder = () => {
   return "docs"
 }
 
+const getParentDirectory = () => {
+  const lastSlashIndex = process.env.GITHUB_WORKSPACE.lastIndexOf("/")
+  return process.env.GITHUB_WORKSPACE.slice(0, lastSlashIndex)
+}
+
 const generateAndDeploy = async () => {
   await exec.exec("pwd")
   const jazzyDocs = getDocumentationFolder()
   await exec.exec("sudo gem install jazzy")
   await exec.exec(generateJazzyArguments())
 
-  await exec.exec("cp", ["-r", `${jazzyDocs}`, "../"])
-  await exec.exec("cd", ["../"])
+  const parentDirectory = getParentDirectory()
+
+  await exec.exec("cp", ["-r", `${jazzyDocs}`, `${parentDirectory}`])
+  await exec.exec("cd", [`${parentDirectory}`])
   await exec.exec("rm", ["-rf", `${context.repo.repo}`])
   // await exec.exec("ls -a ../")
   // await exec.exec("rm", ["-rf", ".git"])
