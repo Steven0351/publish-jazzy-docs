@@ -3754,7 +3754,7 @@ const generateAndDeploy = async () => {
   // await exec.exec("rm", ["-rf", ".git"])
   // await exec.exec("cp", ["-r", `../${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}/${context.repo.repo}`])
 
-  await exec.exec("ls -a")
+  await exec.exec("ls", ["-a"])
   
   const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
   
