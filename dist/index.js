@@ -3694,14 +3694,14 @@ const token = core.getInput("personal_access_token")
 
 const generateJazzyArguments = () => {
   if (configFilePath) {
-    return `${gemPath + "jazzy"} --config ${configFilePath}`
+    return `jazzy --config ${configFilePath}`
   }
 
   if (jazzyArgs) {
-    return `${gemPath + "jazzy"} ${jazzyArgs}`
+    return `jazzy ${jazzyArgs}`
   }
 
-  return `${gemPath + "jazzy"}`
+  return "jazzy"
 }
 
 const sliceDocumentsFromJazzyArgs = (outputArg) => {
@@ -3736,7 +3736,7 @@ const getDocumentationFolder = () => {
 }
 
 const generateAndDeploy = async () => {
-  await exec.exec("gem install jazzy --user-install")
+  await exec.exec("sudo gem install jazzy")
   await exec.exec(generateJazzyArguments())
   await exec.exec(`cd ${getDocumentationFolder()}`)
   
