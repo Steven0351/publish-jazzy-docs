@@ -60,10 +60,12 @@ const generateAndDeploy = async () => {
   const jazzyDocs = getDocumentationFolder()
   await exec.exec("sudo gem install jazzy")
   await exec.exec(generateJazzyArguments())
-  await io.rmRF(".git")
+  await io.mv(jazzyDocs, "../")
+  await io.rmRF("*")
+  await io.rmRF(".*")
+  await io.cp(`../${jazzyDocs}`, ".", { recursive: true, force: true })
 
-  await exec.exec(`cd ${jazzyDocs}`)
-  await exec.exec("pwd")
+  await exec.exec("ls")
   
   const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
   
