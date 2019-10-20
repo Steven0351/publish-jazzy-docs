@@ -69,9 +69,5 @@ const generateAndDeploy = async () => {
   await exec.exec(`git push --force ${remote} master:${branch}`)
 }
 
-try {
-  await generateAndDeploy()
-} catch (error) {
-  core.setFailed(error.message)
-}
-
+ generateAndDeploy()
+ 
