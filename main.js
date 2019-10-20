@@ -61,10 +61,12 @@ const generateAndDeploy = async () => {
   await exec.exec("sudo gem install jazzy")
   await exec.exec(generateJazzyArguments())
 
-  await exec.exec("mv", [`${jazzyDocs}`, "../"])
-  await exec.exec("ls -a ../")
-  await exec.exec("rm", ["-rf", ".git"])
-  await exec.exec("cp", ["-r", `../${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}/${context.repo.repo}`])
+  await exec.exec("cp", ["-r", `${jazzyDocs}`, "../"])
+  await exec.exec("cd", ["../"])
+  await exec.exec("rm", ["-rf", `${context.repo.repo}`])
+  // await exec.exec("ls -a ../")
+  // await exec.exec("rm", ["-rf", ".git"])
+  // await exec.exec("cp", ["-r", `../${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}/${context.repo.repo}`])
 
   await exec.exec("ls -a")
   
