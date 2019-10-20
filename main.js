@@ -1,6 +1,7 @@
 const core = require("@actions/core")
 const exec = require("@actions/exec")
 const github = require("@actions/github")
+const io = require("@actions/io")
 const yaml = require("js-yaml")
 const fs = require("fs")
 
@@ -11,16 +12,16 @@ const jazzyArgs = core.getInput("jazzy_args")
 const branch = core.getInput("branch")
 const token = core.getInput("personal_access_token")
 
-const generateJazzyArguments = () => {
+const generateJazzyArguments = (jazzyPath) => {
   if (configFilePath) {
-    return `jazzy --config ${configFilePath}`
+    return `${jazzyPath} --config ${configFilePath}`
   }
 
   if (jazzyArgs) {
-    return `jazzy ${jazzyArgs}`
+    return `${jazzyPath} ${jazzyArgs}`
   }
 
-  return "jazzy"
+  return `${jazzyPath}`
 }
 
 const sliceDocumentsFromJazzyArgs = (outputArg) => {
@@ -56,7 +57,8 @@ const getDocumentationFolder = () => {
 
 const generateAndDeploy = async () => {
   await exec.exec("gem install jazzy --user-install")
-  await exec.exec(generateJazzyArguments())
+  const jazzyPath = await io.which("jazzy", true)
+  await exec.exec(generateJazzyArguments(jazzyPath))
   await exec.exec(`cd ${getDocumentationFolder()}`)
   
   const remote = `https://${token}@github.com/${context.repo}.git`
@@ -70,4 +72,3 @@ const generateAndDeploy = async () => {
 }
 
  generateAndDeploy()
- 
