@@ -1,6 +1,7 @@
 const core = require("@actions/core")
 const exec = require("@actions/exec")
 const github = require("@actions/github")
+const io = require("@actions/io")
 const yaml = require("js-yaml")
 const fs = require("fs")
 
@@ -58,8 +59,8 @@ const generateAndDeploy = async () => {
   const jazzyDocs = getDocumentationFolder()
   await exec.exec("sudo gem install jazzy")
   await exec.exec(generateJazzyArguments())
-  await exec.exec("ls -a | grep -v " + jazzyDocs + " | xargs rm -rf")
-  await exec.exec(`cd ${jazzyDocs}`)
+  await io.mv(jazzyDocs, "../")
+  await exec.exec(`cd ../${jazzyDocs}`)
   
   const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
   
