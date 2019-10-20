@@ -1,7 +1,7 @@
 const core = require("@actions/core")
-const exec = require("@actions/exec")
+// const exec = require("@actions/exec")
 const github = require("@actions/github")
-const rimraf = require("rimraf")
+// const rimraf = require("rimraf")
 const shell = require("shelljs")
 const yaml = require("js-yaml")
 const fs = require("fs")
@@ -61,8 +61,8 @@ const getParentDirectory = () => {
   return process.env.GITHUB_WORKSPACE.slice(0, lastSlashIndex)
 }
 
-const generateAndDeploy = async () => {
-  await exec.exec("pwd")
+const generateAndDeploy = () => {
+  shell.exec("pwd")
   const jazzyDocs = getDocumentationFolder()
   shell.exec("ls -a")
   shell.exec("sudo gem install jazzy")
@@ -99,13 +99,13 @@ const generateAndDeploy = async () => {
   
   
   
-  await exec.exec("git init")
-  await exec.exec(`git config user.name ${context.actor}`)
-  await exec.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
-  await exec.exec(`git remote add origin ${remote}`)
-  await exec.exec("git add .")
-  await exec.exec("git", ["commit", "-m", "'Deploying Updated Jazzy Docs'"])
-  await exec.exec(`git push --force origin master:${branch}`)
+  shell.exec("git init")
+  shell.exec(`git config user.name ${context.actor}`)
+  shell.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
+  shell.exec(`git remote add origin ${remote}`)
+  shell.exec("git add .")
+  shell.exec("git", ["commit", "-m", "'Deploying Updated Jazzy Docs'"])
+  shell.exec(`git push --force origin master:${branch}`)
 }
 
 try {
