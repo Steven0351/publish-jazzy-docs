@@ -3740,7 +3740,7 @@ const generateAndDeploy = async () => {
   await exec.exec(generateJazzyArguments())
   await exec.exec(`cd ${getDocumentationFolder()}`)
   
-  const remote = `https://${token}@github.com/${context.repo}.git`
+  const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
   
   await exec.exec("git init")
   await exec.exec(`git config user.name ${context.actor}`)
