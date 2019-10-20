@@ -62,6 +62,7 @@ const getParentDirectory = () => {
 }
 
 const generateAndDeploy = () => {
+  shell.exec()
   shell.exec("pwd")
   const jazzyDocs = getDocumentationFolder()
   shell.exec("ls -a")
