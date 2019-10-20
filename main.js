@@ -60,10 +60,12 @@ const generateAndDeploy = async () => {
   const jazzyDocs = getDocumentationFolder()
   await exec.exec("sudo gem install jazzy")
   await exec.exec(generateJazzyArguments())
-  await io.mv(jazzyDocs, "../")
-  await io.rmRF("*")
-  await io.rmRF(".*")
-  await io.cp(`../${jazzyDocs}`, ".", { recursive: true, force: true })
+  
+  await exec.exec("mv", [`${jazzyDocs}`, "../"])
+  await exec.exec("ls ../")
+  await exec.exec("rm -rf *")
+  await exec.exec("rm -rf .*")
+  await exec.exec(`cp -r ../${jazzyDocs} .`)
 
   await exec.exec("ls")
   
