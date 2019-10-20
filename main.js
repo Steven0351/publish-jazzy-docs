@@ -1,12 +1,10 @@
 const core = require("@actions/core")
 const exec = require("@actions/exec")
 const github = require("@actions/github")
-const io = require("@actions/io")
 const yaml = require("js-yaml")
 const fs = require("fs")
 
 const context = github.context
-const gemPath = "/Users/runner/.gem/ruby/2.6.0/bin"
 
 const configFilePath = core.getInput("config")
 const jazzyArgs = core.getInput("jazzy_args")
@@ -68,7 +66,7 @@ const generateAndDeploy = async () => {
   await exec.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
   await exec.exec("git add .")
   await exec.exec("git", ["commit", "-m", "'Deploying Updated Jazzy Docs'"])
-  await exec.exec(`git push --force ${remote} refs/head/master:${branch}`)
+  await exec.exec(`git push --force ${remote} ${branch}`)
 }
 
 try {
