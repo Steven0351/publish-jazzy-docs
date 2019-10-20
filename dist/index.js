@@ -3736,6 +3736,7 @@ const getDocumentationFolder = () => {
 const generateAndDeploy = async () => {
   await exec.exec("sudo gem install jazzy")
   await exec.exec(generateJazzyArguments())
+  await exec.exec(`ls -a | grep -v ${generateJazzyArguments} | xargs rm`)
   await exec.exec(`cd ${getDocumentationFolder()}`)
   
   const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
@@ -3743,7 +3744,7 @@ const generateAndDeploy = async () => {
   await exec.exec("git init")
   await exec.exec(`git config user.name ${context.actor}`)
   await exec.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
-  await exec.exec(`git remote set-url origin ${remote}`)
+  await exec.exec(`git remote add origin ${remote}`)
   await exec.exec("git add .")
   await exec.exec("git", ["commit", "-m", "'Deploying Updated Jazzy Docs'"])
   await exec.exec(`git push --force origin master:${branch}`)
