@@ -3685,22 +3685,23 @@ const yaml = __webpack_require__(354)
 const fs = __webpack_require__(747)
 
 const context = github.context
+const gemPath = "/Users/runner/.gem/ruby/2.6.0/bin"
 
 const configFilePath = core.getInput("config")
 const jazzyArgs = core.getInput("jazzy_args")
 const branch = core.getInput("branch")
 const token = core.getInput("personal_access_token")
 
-const generateJazzyArguments = (jazzyPath) => {
+const generateJazzyArguments = () => {
   if (configFilePath) {
-    return `${jazzyPath} --config ${configFilePath}`
+    return `${gemPath + "jazzy"} --config ${configFilePath}`
   }
 
   if (jazzyArgs) {
-    return `${jazzyPath} ${jazzyArgs}`
+    return `${gemPath + "jazzy"} ${jazzyArgs}`
   }
 
-  return `${jazzyPath}`
+  return `${gemPath + "jazzy"}`
 }
 
 const sliceDocumentsFromJazzyArgs = (outputArg) => {
@@ -3736,8 +3737,7 @@ const getDocumentationFolder = () => {
 
 const generateAndDeploy = async () => {
   await exec.exec("gem install jazzy --user-install")
-  const jazzyPath = await io.which("jazzy", true)
-  await exec.exec(generateJazzyArguments(jazzyPath))
+  await exec.exec(generateJazzyArguments())
   await exec.exec(`cd ${getDocumentationFolder()}`)
   
   const remote = `https://${token}@github.com/${context.repo}.git`
