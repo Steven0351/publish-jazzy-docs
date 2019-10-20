@@ -56,6 +56,7 @@ const getDocumentationFolder = () => {
 }
 
 const generateAndDeploy = async () => {
+  await exec.exec("pwd")
   const jazzyDocs = getDocumentationFolder()
   await exec.exec("sudo gem install jazzy")
   await exec.exec(generateJazzyArguments())
