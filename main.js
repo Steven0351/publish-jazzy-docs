@@ -62,13 +62,11 @@ const getParentDirectory = () => {
 }
 
 const generateAndDeploy = () => {
-  shell.exec()
   shell.exec("pwd")
   const jazzyDocs = getDocumentationFolder()
   shell.exec("ls -a")
   shell.exec("sudo gem install jazzy")
   shell.exec(generateJazzyArguments())
-  shell.cp()
   shell.cp("-r", `${jazzyDocs}/*`, "../")
   shell.cd("../")
   shell.rm("-rf", `${process.env.GITHUB_WORKSPACE}`)
@@ -105,7 +103,7 @@ const generateAndDeploy = () => {
   shell.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
   shell.exec(`git remote add origin ${remote}`)
   shell.exec("git add .")
-  shell.exec("git", ["commit", "-m", "'Deploying Updated Jazzy Docs'"])
+  shell.exec("git commit -m 'Deploying Updated Jazzy Docs'")
   shell.exec(`git push --force origin master:${branch}`)
 }
 
