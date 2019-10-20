@@ -63,7 +63,7 @@ const generateAndDeploy = async () => {
 
   await exec.exec("mv", [`${jazzyDocs}`, "../"])
   await exec.exec("ls -a ../")
-  await exec.exec("rm -rf *")
+  await exec.exec("rm", ["-rf", ".git"])
   await exec.exec("rm -rf .*")
   await exec.exec(`cp -r ../${jazzyDocs} .`)
 
