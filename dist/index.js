@@ -4252,18 +4252,14 @@ const getParentDirectory = () => {
 const generateAndDeploy = async () => {
   await exec.exec("pwd")
   const jazzyDocs = getDocumentationFolder()
-  shell.ls("-a").forEach((file) => {
-    console.log(file)
-  })
+  shell.exec("ls -a")
   shell.exec("sudo gem install jazzy")
   shell.exec(generateJazzyArguments())
   shell.cp()
   shell.cp("-r", `${jazzyDocs}/*`, "../")
   shell.cd("../")
   shell.rm("-rf", `${process.env.GITHUB_WORKSPACE}`)
-  shell.ls("-a").forEach((file) => {
-    console.log(file)
-  })
+  shell.exec("ls -a")
 
   // await exec.exec("sudo gem install jazzy")
   // await exec.exec(generateJazzyArguments())
