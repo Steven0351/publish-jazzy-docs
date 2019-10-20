@@ -1,7 +1,7 @@
 const core = require("@actions/core")
 const exec = require("@actions/exec")
 const github = require("@actions/github")
-const io = require("@actions/io")
+const rimraf = require("rimraf")
 const yaml = require("js-yaml")
 const fs = require("fs")
 
@@ -69,56 +69,13 @@ const generateAndDeploy = async () => {
   const parentDirectory = getParentDirectory()
   const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
-  // await exec.exec("cp", ["-r", `${jazzyDocs}`, `${parentDirectory}`])
-  await exec.exec("cp", [
-    "-r",
-    `${jazzyDocs}`,
-    `${parentDirectory}`,
-    "&&",
-    "cd",
-    `${parentDirectory}`,
-    "&&",
-    "rm",
-    "-rf",
-    `${context.repo.repo}`,
-    "&&",
-    "ls",
-    "-a",
-    "&&",
-    "git",
-    "init",
-    "&&",
-    "git",
-    "config",
-    "user.name",
-    `${context.actor}`,
-    "&&",
-    "git",
-    "config",
-    "user.email",
-    `${context.actor}@users.noreply.github.com`,
-    "&&",
-    "git",
-    "remote",
-    "add",
-    "origin",
-    `${remote}`,
-    "&&",
-    "git",
-    "add",
-    ".",
-    "&&",
-    "git",
-    "commit",
-    "-m",
-    "'Deploying Updated Jazzy Docs'",
-    "&&",
-    "git",
-    "push",
-    "--force",
-    "origin",
-    `master:${branch}`
-  ])
+  await exec.exec("mv", [`${jazzyDocs}`, `${parentDirectory}`])
+  await rimraf("*")
+  await rimraf(".git")
+  await rimraf(".*")
+
+  await exec.exec("cp", ["-r", `${parentDirectory}/${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}`])
+  
   // await exec.exec("cd", [`${parentDirectory}`])
   // await exec.exec("rm", ["-rf", `${context.repo.repo}`])
   // await exec.exec("ls -a ../")
