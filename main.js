@@ -63,9 +63,8 @@ const generateAndDeploy = async () => {
 
   await exec.exec("mv", [`${jazzyDocs}`, "../"])
   await exec.exec("ls -a ../")
-  await exec.exec("rm", ["-rf", ".*"])
-  await exec.exec("rm", ["-rf", "*"])
-  await exec.exec("cp", ["-r", `../${jazzyDocs}`, "."])
+  await exec.exec("rm", ["-rf", ".git"])
+  await exec.exec("cp", ["-r", `../${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}/${context.repo.repo}`])
 
   await exec.exec("ls -a")
   
