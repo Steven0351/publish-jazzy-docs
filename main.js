@@ -77,8 +77,8 @@ const generateAndDeploy = async () => {
   rimraf.sync(".*")
   await exec.exec("ls", ["-a"])
 
-  await exec.exec("cp", ["-r", `${parentDirectory}/${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}`])
-  
+  await exec.exec("cp", ["-r", `${parentDirectory}/${jazzyDocs}/*`, `${process.env.GITHUB_WORKSPACE}`])
+  await exec.exec("ls", ["-a"])
   // await exec.exec("cd", [`${parentDirectory}`])
   // await exec.exec("rm", ["-rf", `${context.repo.repo}`])
   // await exec.exec("ls -a ../")
