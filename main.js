@@ -70,29 +70,31 @@ const generateAndDeploy = async () => {
   const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
   await exec.exec("mv", [`${jazzyDocs}`, `${parentDirectory}`])
+  await exec.exec("ls", ["-a"])
   await rimraf("*")
   await rimraf(".git")
   await rimraf(".*")
+  await exec.exec("ls", ["-a"])
 
   await exec.exec("cp", ["-r", `${parentDirectory}/${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}`])
   
-  // await exec.exec("cd", [`${parentDirectory}`])
-  // await exec.exec("rm", ["-rf", `${context.repo.repo}`])
-  // await exec.exec("ls -a ../")
-  // await exec.exec("rm", ["-rf", ".git"])
-  // await exec.exec("cp", ["-r", `../${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}/${context.repo.repo}`])
+  await exec.exec("cd", [`${parentDirectory}`])
+  await exec.exec("rm", ["-rf", `${context.repo.repo}`])
+  await exec.exec("ls -a ../")
+  await exec.exec("rm", ["-rf", ".git"])
+  await exec.exec("cp", ["-r", `../${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}/${context.repo.repo}`])
 
   // await exec.exec("ls", ["-a"])
   
   
   
-  // await exec.exec("git init")
-  // await exec.exec(`git config user.name ${context.actor}`)
-  // await exec.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
-  // await exec.exec(`git remote add origin ${remote}`)
-  // await exec.exec("git add .")
-  // await exec.exec("git", ["commit", "-m", "'Deploying Updated Jazzy Docs'"])
-  // await exec.exec(`git push --force origin master:${branch}`)
+  await exec.exec("git init")
+  await exec.exec(`git config user.name ${context.actor}`)
+  await exec.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
+  await exec.exec(`git remote add origin ${remote}`)
+  await exec.exec("git add .")
+  await exec.exec("git", ["commit", "-m", "'Deploying Updated Jazzy Docs'"])
+  await exec.exec(`git push --force origin master:${branch}`)
 }
 
 try {
