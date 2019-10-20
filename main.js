@@ -71,18 +71,18 @@ const generateAndDeploy = async () => {
 
   await exec.exec("mv", [`${jazzyDocs}`, `${parentDirectory}`])
   await exec.exec("ls", ["-a"])
-  await rimraf("*")
-  await rimraf(".git")
-  await rimraf(".*")
+  rimraf.sync("*")
+  rimraf.sync(".git")
+  rimraf.sync(".*")
   await exec.exec("ls", ["-a"])
 
-  await exec.exec("cp", ["-r", `${parentDirectory}/${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}`])
+  // await exec.exec("cp", ["-r", `${parentDirectory}/${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}`])
   
-  await exec.exec("cd", [`${parentDirectory}`])
-  await exec.exec("rm", ["-rf", `${context.repo.repo}`])
-  await exec.exec("ls -a ../")
-  await exec.exec("rm", ["-rf", ".git"])
-  await exec.exec("cp", ["-r", `../${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}/${context.repo.repo}`])
+  // await exec.exec("cd", [`${parentDirectory}`])
+  // await exec.exec("rm", ["-rf", `${context.repo.repo}`])
+  // await exec.exec("ls -a ../")
+  // await exec.exec("rm", ["-rf", ".git"])
+  // await exec.exec("cp", ["-r", `../${jazzyDocs}`, `${process.env.GITHUB_WORKSPACE}/${context.repo.repo}`])
 
   // await exec.exec("ls", ["-a"])
   
