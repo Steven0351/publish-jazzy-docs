@@ -44,12 +44,12 @@ const getDocumentationFolder = () => {
   }
 
   if (jazzyArgs) {
-    if (jazzyArgs.includes("-o")) {
-      return sliceDocumentsFromJazzyArgs("-o")
-    }
-
     if (jazzyArgs.includes("--output")) {
       return sliceDocumentsFromJazzyArgs("--output")
+    }
+
+    if (jazzyArgs.includes("-o")) {
+      return sliceDocumentsFromJazzyArgs("-o")
     }
   }
 
