@@ -27,12 +27,13 @@ const generateJazzyArguments = () => {
 
 const sliceDocumentsFromJazzyArgs = (outputArg) => {
   const startIndexOfDocsDir = jazzyArgs.indexOf(outputArg) + outputArg.length + 1
-      const endIndexOfDocsDir = jazzyArgs.indexOf(" ", startIndexOfDocsDir)
-      if (endIndexOfDocsDir != -1) {
-        return jazzyArgs.slice(startIndexOfDocsDir, endIndexOfDocsDir)
-      } else {
-        return jazzyArgs.slice(startIndexOfDocsDir)
-      }
+  const endIndexOfDocsDir = jazzyArgs.indexOf(" ", startIndexOfDocsDir)
+
+  if (endIndexOfDocsDir != -1) {
+    return jazzyArgs.slice(startIndexOfDocsDir, endIndexOfDocsDir)
+  } else {
+    return jazzyArgs.slice(startIndexOfDocsDir)
+  }
 }
 
 const getDocumentationFolder = () => {
@@ -44,6 +45,7 @@ const getDocumentationFolder = () => {
   }
 
   if (jazzyArgs) {
+    // --output needs to be checked first, because --output includes -o
     if (jazzyArgs.includes("--output")) {
       return sliceDocumentsFromJazzyArgs("--output")
     }
