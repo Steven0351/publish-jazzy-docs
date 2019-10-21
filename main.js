@@ -26,7 +26,7 @@ const generateJazzyArguments = () => {
 }
 
 const sliceDocumentsFromJazzyArgs = (outputArg) => {
-  const startIndexOfDocsDir = jazzyArgs.indexOf(outputArg) + 3
+  const startIndexOfDocsDir = jazzyArgs.indexOf(outputArg) + outputArg.length + 1
       const endIndexOfDocsDir = jazzyArgs.indexOf(" ", startIndexOfDocsDir)
       if (endIndexOfDocsDir != -1) {
         return jazzyArgs.slice(startIndexOfDocsDir, endIndexOfDocsDir)
