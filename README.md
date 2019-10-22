@@ -10,7 +10,7 @@ This Action expects the following to be true:
 
 ## Limitations
 This Action will never support the following:
-* Generating and deploying documetnation to `master` or in a docs folder on `master`
+* Generating and deploying documentation to `master` or in a docs folder on `master`
 * Maintain commit history of the `gh-pages` branch.
 
 This Action does not currently support the following:
@@ -19,7 +19,7 @@ This Action does not currently support the following:
 
 ## Configuration
 |Key|Description|Required|
-|---|---|---:|
+|---|---|:---:|
 | `personal_access_token` | A personal access token with repo scope for pushing documentation to `gh-pages` branch. See [Creating a Personal Access Token](https://help.github.com/en/enterprise/2.17/user/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) for creating the token and [Creating and Using Secrets](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) for including secrets to be used in tandem with Github Actions. | Yes |
 | `config` | The path to a Jazzy yaml configuration file| No |
 | `args` | Command line arguments to be passed to Jazzy. See `jazzy --help` on your local machine for available options| No |
@@ -46,7 +46,7 @@ jobs:
         personal_access_token: ${{ secrets.ACCESS_TOKEN }}
 ```
 
-You can specify a Jazzy config file:
+Specify a Jazzy config file:
 ```yaml
 ...
     - name: Publish Jazzy Docs
