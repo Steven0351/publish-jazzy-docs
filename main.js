@@ -6,12 +6,23 @@ const fs = require("fs")
 
 const context = github.context
 
+const branch = "gh-pages"
+const jazzyVersion = core.getInput("jazzy_version")
 const configFilePath = core.getInput("config")
 const jazzyArgs = core.getInput("jazzy_args")
-const branch = core.getInput("branch")
 const token = core.getInput("personal_access_token")
 
 const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
+
+const generateJazzyInstallCommand = () => {
+  let gemInstall = "sudo gem install jazzy"
+
+  if (jazzyVersion) {
+    gemInstall + ` -v ${jazzyVersion}`
+  }
+
+  return gemInstall
+}
 
 const generateJazzyArguments = () => {
   if (configFilePath) {
@@ -59,10 +70,10 @@ const getDocumentationFolder = () => {
 }
 
 const generateAndDeploy = () => {
-  const jazzyDocs = getDocumentationFolder()
-  shell.exec("sudo gem install jazzy")
+  shell.exec(generateJazzyInstallCommand())
   shell.exec(generateJazzyArguments())
-  shell.cp("-r", `${jazzyDocs}/*`, "../")
+  shell.cp("-r", `${getDocumentationFolder()}/*`, "../")
+
   shell.cd("../")
   shell.rm("-rf", `${process.env.GITHUB_WORKSPACE}`)
 
