@@ -4,10 +4,10 @@ inputs:
   config:
     description: "Path to .jazzy.yml file - preferred"
     required: false
-  jazzy_args:
+  args:
     description: "Arguments to pass to Jazzy"
     required: false
-  jazzy_version:
+  version:
     description: "Jazzy Version"
     required: false
   personal_access_token:
