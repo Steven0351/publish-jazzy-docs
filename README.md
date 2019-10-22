@@ -35,7 +35,7 @@ on:
     types: [published]
 
 jobs:
-  build:
+  deploy_docs:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
