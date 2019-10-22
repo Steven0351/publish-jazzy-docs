@@ -77,4 +77,4 @@ Specify a Jazzy version:
 ```
 
 ## Contributions
-Pull requests are the preferred method of contributing, but if you are unable a detailed GitHub Issue describing the bug or feature request is more than welcome.
+Pull requests are the preferred method of contributing. If you are unable to create a pull request, a detailed GitHub Issue describing the bug or feature request is more than welcome.
