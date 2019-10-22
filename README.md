@@ -8,15 +8,6 @@ This Action expects the following to be true:
 * You have a `gh-pages` branch in your repository
 * A personal access token with `repo` scope. The `GITHUB_TOKEN` available as part of an action will not trigger a Github Pages build. See [this discussion thread](https://github.community/t5/GitHub-Actions/Github-action-not-triggering-gh-pages-upon-push/td-p/26869) for more information.
 
-## Limitations
-This Action will never support the following:
-* Generating and deploying documentation to `master` or in a docs folder on `master`
-* Maintain commit history of the `gh-pages` branch.
-
-This Action does not currently support the following:
-* .json configuration files are not currently supported
-* You may only specify `config` or `args`. Any `args` provided along with a jazzy config file will be ignored.
-
 ## Configuration
 |Key|Description|Required|
 |---|---|:---:|
@@ -25,6 +16,14 @@ This Action does not currently support the following:
 | `args` | Command line arguments to be passed to Jazzy. See `jazzy --help` on your local machine for available options| No |
 | `version` | The Jazzy version to run. Defaults to latest | No
 
+## Limitations
+This Action will never support the following:
+* Generating and deploying documentation to `master` or in a docs folder on `master`
+* Maintain commit history of the `gh-pages` branch.
+
+This Action does not currently support the following:
+* .json configuration files
+* Specifying both `config` and `args`. Any `args` provided along with `config` will be ignored.
 
 ## Usage
 Documentation generation can be as minimal as the following:
