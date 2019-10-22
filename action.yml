@@ -7,10 +7,9 @@ inputs:
   jazzy_args:
     description: "Arguments to pass to Jazzy"
     required: false
-  branch:
-    description: "GitHub Pages branch"
+  jazzy_version:
+    description: "Jazzy Version"
     required: false
-    default: "gh-pages"
   personal_access_token:
     description: "Personal access token"
     required: true
