@@ -1,4 +1,4 @@
-name: "Publish Jazzy Docs:"
+name: "Publish Jazzy Docs"
 description: "Generate Swift/Objective-C documentation with Jazzy and publish to Github Pages"
 inputs:
   config:

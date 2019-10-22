@@ -1,5 +1,5 @@
 # Publish Jazzy Docs to Github Pages
-This is a GitHub Action generate and publish [Jazzy](https://github.com/realm/jazzy/) documentation for your Swift and/or Objective-C projects.
+A GitHub Action to generate and publish [Jazzy](https://github.com/realm/jazzy/) documentation for your Swift and/or Objective-C projects.
 
 ## Assumptions
 This Action expects the following to be true:
