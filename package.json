@@ -1,0 +1,29 @@
+{
+  "name": "publish-jazzy-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Steven0351/publish-jazzy-docs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Steven0351/publish-jazzy-docs/issues"
+  },
+  "homepage": "https://github.com/Steven0351/publish-jazzy-docs#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/exec": "^1.0.1",
+    "@actions/github": "^1.1.0",
+    "@actions/io": "^1.0.1",
+    "js-yaml": "^3.13.1",
+    "rimraf": "^3.0.0",
+    "shelljs": "^0.8.3"
+  }
+}

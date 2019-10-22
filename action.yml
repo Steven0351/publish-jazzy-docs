@@ -1,0 +1,18 @@
+name: "Publish Jazzy Docs:"
+desc: "Generate Swift/Obj-C documentation with Jazzy and publish to Github Pages"
+inputs:
+  config:
+    description: "Path to .jazzy.yml file - preferred"
+    required: false
+  args:
+    description: "Arguments to pass to Jazzy"
+    required: false
+  version:
+    description: "Jazzy Version"
+    required: false
+  personal_access_token:
+    description: "Personal access token"
+    required: true
+runs:
+  using: "node12"
+  main: "main.js"
