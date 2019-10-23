@@ -12,7 +12,7 @@ This Action expects the following to be true:
 |Key|Description|Required|
 |---|---|:---:|
 | `personal_access_token` | A personal access token with repo scope for pushing documentation to `gh-pages` branch. See [Creating a Personal Access Token](https://help.github.com/en/enterprise/2.17/user/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) for creating the token and [Creating and Using Secrets](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) for including secrets to be used in tandem with Github Actions. | Yes |
-| `config` | The path to a Jazzy yaml configuration file| No |
+| `config` | The path to a Jazzy yaml or json configuration file| No |
 | `args` | Command line arguments to be passed to Jazzy. See `jazzy --help` on your local machine for available options| No |
 | `version` | The Jazzy version to run. Defaults to latest | No
 
@@ -22,7 +22,6 @@ This Action will never support the following:
 * Maintain commit history of the `gh-pages` branch.
 
 This Action does not currently support the following:
-* .json configuration files
 * Specifying both `config` and `args`. Any `args` provided along with `config` will be ignored.
 
 ## Usage
