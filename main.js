@@ -51,7 +51,16 @@ const sliceDocumentsFromJazzyArgs = (outputArg) => {
 
 const getDocumentationFolder = () => {
   if (configFilePath) {
-    const config = yaml.safeLoad(fs.readFileSync(configFilePath, "utf8"))
+    let config
+    const fileExt = configFilePath.split(".").pop().toLowerCase()
+
+    if (fileExt === "yml" || fileExt === "yaml") {
+      config = yaml.safeLoad(fs.readFileSync(configFilePath, "utf8"))
+    } else if (fileExt === "json") {
+      const rawData = fs.readFileSync(configFilePath)
+      config = JSON.parse(rawData)
+    }
+
     if (config.output) {
       return config.output
     }
