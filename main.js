@@ -6,13 +6,14 @@ const fs = require("fs")
 
 const context = github.context
 
-const branch = "gh-pages"
+const gh_pagesBranch = "gh-pages"
 
 // User defined input
 const jazzyVersion = core.getInput("version")
 const configFilePath = core.getInput("config")
 const jazzyArgs = core.getInput("args")
 const token = core.getInput("personal_access_token")
+const branch = core.getInput("branch") || gh_pagesBranch
 
 const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
@@ -83,10 +84,13 @@ const getDocumentationFolder = () => {
 const generateAndDeploy = () => {
   shell.exec(generateJazzyInstallCommand())
   shell.exec(generateJazzyArguments())
-  shell.cp("-r", `${getDocumentationFolder()}/*`, "../")
 
-  shell.cd("../")
-  shell.rm("-rf", `${process.env.GITHUB_WORKSPACE}`)
+  if(branch == gh_pagesBranch) {
+    shell.cp("-r", `${getDocumentationFolder()}/*`, "../")
+
+    shell.cd("../")
+    shell.rm("-rf", `${process.env.GITHUB_WORKSPACE}`)  
+  }
 
   shell.exec("git init")
   shell.exec(`git config user.name ${context.actor}`)

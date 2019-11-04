@@ -10,6 +10,9 @@ inputs:
   version:
     description: "Jazzy Version"
     required: false
+  branch:
+    description: "Branch to make commit on"
+    required: false
   personal_access_token:
     description: "Personal access token"
     required: true
