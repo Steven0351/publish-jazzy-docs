@@ -14,6 +14,7 @@ const configFilePath = core.getInput("config")
 const jazzyArgs = core.getInput("args")
 const token = core.getInput("personal_access_token")
 const branch = core.getInput("branch") || gh_pagesBranch
+const message = core.getInput("message") || 'Deploying Updated Jazzy Docs'
 
 const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
@@ -96,7 +97,7 @@ const generateAndDeploy = () => {
   shell.exec(`git config user.name ${context.actor}`)
   shell.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
   shell.exec("git add .")
-  shell.exec("git commit -m 'Deploying Updated Jazzy Docs'")
+  shell.exec(`git commit -m '${message}'`)
   shell.exec(`git push --force ${remote} master:${branch}`)
 }
 
@@ -105,4 +106,3 @@ try {
 } catch (error) {
   core.setFailed(error.message)
 }
-

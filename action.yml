@@ -13,6 +13,9 @@ inputs:
   branch:
     description: "Branch to make commit on"
     required: false
+  message:
+    description: "Commit message of new commit"
+    required: false
   personal_access_token:
     description: "Personal access token"
     required: true
