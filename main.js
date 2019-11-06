@@ -35,10 +35,9 @@ const gitArguments = () => {
     return [
       `git config user.name ${context.actor}`,
       `git config user.email ${context.actor}@users.noreply.github.com`,
-      `git config user.password "${token}"`,
       "git add .",
       `git commit -m '${message}'`,
-      `git push origin HEAD:${branch}`
+      `git push ${remote} HEAD:${branch}`
     ]
   }
 }
