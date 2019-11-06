@@ -38,8 +38,7 @@ const gitArguments = () => {
       `git config --global user.password "${token}"`,
       "git add .",
       `git commit -m '${message}'`,
-      `git branch --set-upstream-to origin/${branch}`,
-      "git push"
+      `git push origin HEAD:${branch}`
     ]
   }
 }
