@@ -108,7 +108,7 @@ const getDocumentationFolder = () => {
 
 const generateAndDeploy = () => {
   if (branch !== pagesBranch || branch !== masterBranch) {
-    core.setFailed
+    core.setFailed("Unsupported branch")
   }
 
   shell.exec(generateJazzyInstallCommand())
