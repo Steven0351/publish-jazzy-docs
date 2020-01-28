@@ -83,10 +83,10 @@ const getDocumentationFolder = () => {
 const generateAndDeploy = () => {
   shell.exec(generateJazzyInstallCommand())
   shell.exec(generateJazzyArguments())
-  shell.cp("-r", `${getDocumentationFolder()}/*`, "../")
+  shell.exec("mkdir ../.docs")
+  shell.cp("-r", `${getDocumentationFolder()}/*`, "../.docs/")
 
-  shell.cd("../")
-  shell.rm("-rf", `${process.env.GITHUB_WORKSPACE}`)
+  shell.cd("../.docs")
 
   shell.exec("git init")
   shell.exec(`git config user.name ${context.actor}`)
@@ -94,6 +94,8 @@ const generateAndDeploy = () => {
   shell.exec("git add .")
   shell.exec("git commit -m 'Deploying Updated Jazzy Docs'")
   shell.exec(`git push --force ${remote} master:${branch}`)
+  
+  shell.cd(`../${process.env.GITHUB_WORKSPACE}`)
 }
 
 try {
