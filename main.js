@@ -95,7 +95,7 @@ const generateAndDeploy = () => {
   shell.exec("git commit -m 'Deploying Updated Jazzy Docs'")
   shell.exec(`git push --force ${remote} master:${branch}`)
   
-  shell.cd(`../${process.env.GITHUB_WORKSPACE}`)
+  shell.cd(process.env.GITHUB_WORKSPACE)
 }
 
 try {
