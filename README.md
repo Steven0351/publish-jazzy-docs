@@ -35,7 +35,7 @@ on:
 
 jobs:
   deploy_docs:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
     - name: Publish Jazzy Docs
