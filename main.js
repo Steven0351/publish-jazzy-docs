@@ -20,7 +20,7 @@ const generateJazzyInstallCommand = () => {
   let gemInstall = "sudo gem install jazzy"
 
   if (jazzyVersion) {
-    gemInstall + ` -v ${jazzyVersion}`
+    gemInstall += ` -v ${jazzyVersion}`
   }
 
   return gemInstall
