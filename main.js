@@ -85,6 +85,7 @@ const generateAndDeploy = () => {
   shell.exec(generateJazzyArguments())
   shell.exec("mkdir ../.docs")
   shell.cp("-r", `${getDocumentationFolder()}/*`, "../.docs/")
+  shell.cp("CNAME", "../.docs/")
 
   shell.cd("../.docs")
 
