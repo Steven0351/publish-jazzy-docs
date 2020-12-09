@@ -95,10 +95,14 @@ const getDocumentationFolder = () => {
 const generateAndDeploy = () => {
   shell.exec(generateJazzyInstallCommand())
   shell.exec(generateJazzyArguments())
-  shell.exec("mkdir -p ../.staging/" + getDocumentationFolder())
+  var folder = getDocumentationFolder()
+  if (folder.charAt(folder.length - 1) != '/') {
+      folder += '/'
+  }
+  shell.exec("mkdir -p ../.staging/" + folder)
   // we don't want it to nest on move
-  shell.exec("rm -r ../.staging/" + getDocumentationFolder())
-  shell.mv(getDocumentationFolder(), "../.staging/" + getDocumentationFolder())
+  shell.exec("rm -r ../.staging/" + folder)
+  shell.mv(folder, "../.staging/" + folder)
   shell.exec("mkdir ../.docs")
   shell.cd("../.docs")
 
@@ -110,10 +114,11 @@ const generateAndDeploy = () => {
     shell.exec(`git checkout -b ${branch}`)
   }
 
-  shell.exec("mkdir -p " + getDocumentationFolder(), {fatal: false})
+  shell.exec("mkdir -p " + folder, {fatal: false})
   // we don't want it to nest on move
-  shell.exec("rm -rf " + getDocumentationFolder())
-  shell.mv("../.staging/" + getDocumentationFolder(), getDocumentationFolder())
+  shell.exec("rm -rf " + folder)
+  shell.mv("../.staging/" + folder, folder)
+  shell.exec("rm " + folder + "undocumented.json")
   shell.exec(`git config user.name ${context.actor}`)
   shell.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
   shell.exec("git add .")
