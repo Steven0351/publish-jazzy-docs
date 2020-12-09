@@ -1,10 +1,11 @@
 {
   "name": "publish-jazzy-docs",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx @vercel/ncc build main.js --license license.txt"
   },
   "repository": {
     "type": "git",

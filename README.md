@@ -12,24 +12,18 @@ This Action expects the following to be true:
 |Key|Description|Required|
 |---|---|:---:|
 | `personal_access_token` | A personal access token with repo scope for pushing documentation to `gh-pages` branch. See [Creating a Personal Access Token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token#creating-a-token) for creating the token and [Creating and Using Secrets](https://help.github.com/en/github/automating-your-workflow-with-github-actions/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) for including secrets to be used in tandem with Github Actions. | Yes |
-| `config` | The path to a Jazzy yaml or json configuration file| No |
-| `args` | Command line arguments to be passed to Jazzy. See `jazzy --help` on your local machine for available options| No |
+| `config` | The path to a Jazzy yaml or json configuration file | No |
+| `args` | Command line arguments to be passed to Jazzy. See `jazzy --help` on your local machine for available options | No |
 | `version` | The Jazzy version to run. Defaults to latest | No
-
-## Limitations
-This Action will never support the following:
-* Generating and deploying documentation to `master` or in a docs folder on `master`
-* Maintain commit history of the `gh-pages` branch.
-
-This Action does not currently support the following:
-* Specifying both `config` and `args`. Any `args` provided along with `config` will be ignored.
+| `branch` | Branch to deploy on - default: gh-pages | No |
+| `history` | Maintain branch history - default: true | No
 
 ## Usage
 Documentation generation can be as minimal as the following:
 ```yaml
 name: PublishDocumentation
 
-on: 
+on:
   release:
     types: [published]
 
