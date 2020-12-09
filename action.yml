@@ -1,11 +1,17 @@
 name: "Publish Jazzy Docs"
 description: "Generate Swift/Objective-C documentation with Jazzy and publish to Github Pages"
 inputs:
+  branch:
+    description: "Branch to deploy on - default: gh-pages"
+    required: false
+  history:
+    description: "Maintain branch history - default: true"
+    required: false
   config:
-    description: "Path to .jazzy.yml file - preferred"
+    description: "Path to .jazzy.yml file."
     required: false
   args:
-    description: "Arguments to pass to Jazzy"
+    description: "Arguments to pass to Jazzy."
     required: false
   version:
     description: "Jazzy Version"
@@ -15,7 +21,7 @@ inputs:
     required: true
 runs:
   using: "node12"
-  main: "main.js"
+  main: "dist/index.js"
 branding:
   icon: "book"
   color: "green"

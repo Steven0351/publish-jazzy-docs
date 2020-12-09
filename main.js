@@ -6,13 +6,23 @@ const fs = require("fs")
 
 const context = github.context
 
-const branch = "gh-pages"
+shell.config.fatal = true
 
 // User defined input
+var branch = core.getInput("branch")
+var history = core.getInput("history")
 const jazzyVersion = core.getInput("version")
 const configFilePath = core.getInput("config")
 const jazzyArgs = core.getInput("args")
 const token = core.getInput("personal_access_token")
+
+if (branch == '' || branch == null || branch == undefined) {
+    branch = "gh-pages"
+}
+
+if (history == '' || history == null || history == undefined) {
+    history = true
+}
 
 const remote = `https://${token}@github.com/${context.repo.owner}/${context.repo.repo}.git`
 
@@ -27,15 +37,17 @@ const generateJazzyInstallCommand = () => {
 }
 
 const generateJazzyArguments = () => {
-  if (configFilePath) {
-    return `jazzy --config ${configFilePath}`
-  }
+  let command = `jazzy`
 
   if (jazzyArgs) {
-    return `jazzy ${jazzyArgs}`
+    command += ` ${jazzyArgs}`
   }
 
-  return "jazzy"
+  if (configFilePath) {
+    command += ` --config ${configFilePath}`
+  }
+
+  return command
 }
 
 const sliceDocumentsFromJazzyArgs = (outputArg) => {
@@ -50,6 +62,17 @@ const sliceDocumentsFromJazzyArgs = (outputArg) => {
 }
 
 const getDocumentationFolder = () => {
+  if (jazzyArgs) {
+    // --output needs to be checked first, because --output includes -o
+    if (jazzyArgs.includes("--output")) {
+      return sliceDocumentsFromJazzyArgs("--output")
+    }
+
+    if (jazzyArgs.includes("-o")) {
+      return sliceDocumentsFromJazzyArgs("-o")
+    }
+  }
+
   if (configFilePath) {
     let config
     const fileExt = configFilePath.split(".").pop().toLowerCase()
@@ -66,35 +89,42 @@ const getDocumentationFolder = () => {
     }
   }
 
-  if (jazzyArgs) {
-    // --output needs to be checked first, because --output includes -o
-    if (jazzyArgs.includes("--output")) {
-      return sliceDocumentsFromJazzyArgs("--output")
-    }
-
-    if (jazzyArgs.includes("-o")) {
-      return sliceDocumentsFromJazzyArgs("-o")
-    }
-  }
-
   return "docs"
 }
 
 const generateAndDeploy = () => {
   shell.exec(generateJazzyInstallCommand())
   shell.exec(generateJazzyArguments())
+  var folder = getDocumentationFolder()
+  if (folder.charAt(folder.length - 1) != '/') {
+      folder += '/'
+  }
+  shell.exec("mkdir -p ../.staging/" + folder)
+  // we don't want it to nest on move
+  shell.exec("rm -r ../.staging/" + folder)
+  shell.mv(folder, "../.staging/" + folder)
   shell.exec("mkdir ../.docs")
-  shell.cp("-r", `${getDocumentationFolder()}/*`, "../.docs/")
-
   shell.cd("../.docs")
 
-  shell.exec("git init")
+  if (history) {
+    shell.exec(`git clone ${remote} .`)
+    shell.exec(`git checkout ${branch}`)
+  } else {
+    shell.exec("git init")
+    shell.exec(`git checkout -b ${branch}`)
+  }
+
+  shell.exec("mkdir -p " + folder, {fatal: false})
+  // we don't want it to nest on move
+  shell.exec("rm -rf " + folder)
+  shell.mv("../.staging/" + folder, folder)
+  shell.exec("rm " + folder + "undocumented.json")
   shell.exec(`git config user.name ${context.actor}`)
   shell.exec(`git config user.email ${context.actor}@users.noreply.github.com`)
   shell.exec("git add .")
   shell.exec("git commit -m 'Deploying Updated Jazzy Docs'")
-  shell.exec(`git push --force ${remote} master:${branch}`)
-  
+  shell.exec(`git push --force ${remote} ${branch}`)
+
   shell.cd(process.env.GITHUB_WORKSPACE)
 }
 
@@ -103,4 +133,3 @@ try {
 } catch (error) {
   core.setFailed(error.message)
 }
-
