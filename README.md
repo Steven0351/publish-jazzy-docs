@@ -1,3 +1,5 @@
+I no longer have a great need for this project, and it is more of a burden than a help to myself. Feel free to fork and improve, but I will no longer be maintaining this.
+
 # Publish Jazzy Docs to Github Pages
 A GitHub Action to generate and publish [Jazzy](https://github.com/realm/jazzy/) documentation for your Swift and/or Objective-C projects.
 
